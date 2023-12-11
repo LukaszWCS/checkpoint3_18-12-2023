@@ -6,17 +6,19 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+const tileControllers = require("./controllers/tileControllers");
 
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
+router.get("/tiles", tileControllers.browse);
 
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+const boatControllers = require("./controllers/boatControllers");
+const tileExists = require("./services/tileExists");
 
-// Route to add a new item
-router.post("/items", itemControllers.add);
+router.get("/boats", boatControllers.browse);
+router.put("/boats/:id", tileExists, boatControllers.edit);
+
+const gameControllers = require("./controllers/gameControllers");
+
+router.post("/games", gameControllers.add);
 
 /* ************************************************************************* */
 

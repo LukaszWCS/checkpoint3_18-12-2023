@@ -1,41 +1,48 @@
-import Counter from "./components/Counter";
-import logo from "./assets/logo.svg";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 
 import "./App.css";
 
+import NavBar from "./components/NavBar";
+
+import api from "./services/api";
+
 function App() {
+  const [boats, setBoats] = useState([]);
+  const [tiles, setTiles] = useState([]);
+
+  const reloadTiles = () =>
+    api.get("/api/tiles").then((response) => {
+      setTiles(response.data);
+    });
+
+  const reloadBoats = () =>
+    api.get("/api/boats?name=Black Pearl").then((response) => {
+      setBoats(response.data);
+
+      const blackPearl = response.data.find(
+        (boat) => boat.name === "Black Pearl"
+      );
+
+      if (blackPearl?.has_treasure) {
+        alert("Not All Treasure Is Silver And Gold, Mate.");
+      }
+    });
+
+  useEffect(() => {
+    reloadTiles();
+    reloadBoats();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React !</p>
-
-        <Counter />
-
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
+    <>
+      <header>
+        <NavBar onStart={reloadBoats} />
       </header>
-    </div>
+      <main className="App">
+        <Outlet context={{ boats, reloadBoats, tiles }} />
+      </main>
+    </>
   );
 }
 
