@@ -34,7 +34,7 @@ Ton objectif est de voir où tu en es sur :
 
 - [ ] La modélisation de base de données
 - [ ] L'utilisation des routes dans Express
-- [ ] L'utilisation des controlelrs
+- [ ] L'utilisation des controllers
 - [ ] L'utilisation des models
 - [ ] L'utilisation des middlewares
 - [ ] Les jointures en SQL
