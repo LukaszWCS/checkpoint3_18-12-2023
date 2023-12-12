@@ -1,20 +1,26 @@
 // Import required dependencies
-const { app, request } = require("./setup");
+const { database } = require("./setup");
 
-const tileControllers = require("../src/controllers/tileControllers");
+describe("The has_treasure attribute", () => {
+  test("you added the attribute in database/schema.sql (remember to run again db:migrate and db:seed scripts)", async () => {
+    const [result] = await database.query("describe tile");
 
-describe("GET /api/tiles", () => {
-  test("you declared and exported a browse function from tileControllers.js", async () => {
-    expect(typeof tileControllers.browse).toBe("function");
+    const hasTreasure = result.find(({ Field }) => Field === "has_treasure");
+
+    expect(hasTreasure).toBeDefined();
   });
-  test("your browse function has 3 parameters: req, res and next", async () => {
-    expect(tileControllers.browse).toHaveLength(3);
-  });
-  test("you declared the route GET /api/tiles in router.js, and it sends back the tiles in the response", async () => {
-    const response = await request(app).get("/api/tiles");
+  test("the attribute is a boolean", async () => {
+    const [result] = await database.query("describe tile");
 
-    expect(response.status).toBe(200);
-    expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.body).toHaveLength(72);
+    const hasTreasure = result.find(({ Field }) => Field === "has_treasure");
+
+    expect(hasTreasure.Type).toMatch(/tinyint/);
+  });
+  test("the attribute is false by default", async () => {
+    const [result] = await database.query("describe tile");
+
+    const hasTreasure = result.find(({ Field }) => Field === "has_treasure");
+
+    expect(hasTreasure.Default).toMatch(/0/);
   });
 });

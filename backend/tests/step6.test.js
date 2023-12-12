@@ -1,47 +1,20 @@
 // Import required dependencies
-const { tables } = require("./setup");
+const { app, request, tables } = require("./setup");
 
-describe("JOIN tile ON boat.coord_x=tile.coord_x and boat.coord_y=tile.coord_y", () => {
-  test("your readAll method in BoatManager.js selects boat.id", async () => {
-    const [blackPearl] = await tables.boat.readAll({
-      name: "Black Pearl",
-    });
-
-    expect(blackPearl).toHaveProperty("id");
+describe("GET /api/boats?name=Black Pearl", () => {
+  test("you added a 'where' parameter to method readAll() in BoatManager.js", async () => {
+    expect(tables.boat.readAll).toHaveLength(1);
   });
-  test("your readAll method in BoatManager.js selects boat.coord_x", async () => {
-    const [blackPearl] = await tables.boat.readAll({
-      name: "Black Pearl",
-    });
+  test("you used 'where.name' in the SQL request", async () => {
+    const rows = await tables.boat.readAll({ name: "Black Pearl" });
 
-    expect(blackPearl).toHaveProperty("coord_x");
+    expect(rows).toHaveLength(1);
   });
-  test("your readAll method in BoatManager.js selects boat.coord_y", async () => {
-    const [blackPearl] = await tables.boat.readAll({
-      name: "Black Pearl",
-    });
+  test("you passed 'req.query' as argument to tables.boat.readAll() in boatControllers.js", async () => {
+    const response = await request(app).get("/api/boats?name=Black%20Pearl");
 
-    expect(blackPearl).toHaveProperty("coord_y");
-  });
-  test("your readAll method in BoatManager.js selects boat.name", async () => {
-    const [blackPearl] = await tables.boat.readAll({
-      name: "Black Pearl",
-    });
-
-    expect(blackPearl).toHaveProperty("name");
-  });
-  test("your readAll method in BoatManager.js selects tile.type", async () => {
-    const [blackPearl] = await tables.boat.readAll({
-      name: "Black Pearl",
-    });
-
-    expect(blackPearl).toHaveProperty("type");
-  });
-  test("your readAll method in BoatManager.js selects tile.has_treasure", async () => {
-    const [blackPearl] = await tables.boat.readAll({
-      name: "Black Pearl",
-    });
-
-    expect(blackPearl).toHaveProperty("has_treasure");
+    expect(response.status).toBe(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.body).toHaveLength(1);
   });
 });

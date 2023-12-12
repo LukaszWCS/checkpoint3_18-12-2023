@@ -1,26 +1,47 @@
 // Import required dependencies
-const { database } = require("./setup");
+const { tables } = require("./setup");
 
-describe("The has_treasure attribute", () => {
-  test("you added the attribute in database/schema.sql (remember to run again db:migrate and db:seed scripts)", async () => {
-    const [result] = await database.query("describe tile");
+describe("JOIN tile ON boat.coord_x=tile.coord_x and boat.coord_y=tile.coord_y", () => {
+  test("your readAll method in BoatManager.js selects boat.id", async () => {
+    const [blackPearl] = await tables.boat.readAll({
+      name: "Black Pearl",
+    });
 
-    const hasTreasure = result.find(({ Field }) => Field === "has_treasure");
-
-    expect(hasTreasure).toBeDefined();
+    expect(blackPearl).toHaveProperty("id");
   });
-  test("the attribute is a boolean", async () => {
-    const [result] = await database.query("describe tile");
+  test("your readAll method in BoatManager.js selects boat.coord_x", async () => {
+    const [blackPearl] = await tables.boat.readAll({
+      name: "Black Pearl",
+    });
 
-    const hasTreasure = result.find(({ Field }) => Field === "has_treasure");
-
-    expect(hasTreasure.Type).toMatch(/tinyint/);
+    expect(blackPearl).toHaveProperty("coord_x");
   });
-  test("the attribute is false by default", async () => {
-    const [result] = await database.query("describe tile");
+  test("your readAll method in BoatManager.js selects boat.coord_y", async () => {
+    const [blackPearl] = await tables.boat.readAll({
+      name: "Black Pearl",
+    });
 
-    const hasTreasure = result.find(({ Field }) => Field === "has_treasure");
+    expect(blackPearl).toHaveProperty("coord_y");
+  });
+  test("your readAll method in BoatManager.js selects boat.name", async () => {
+    const [blackPearl] = await tables.boat.readAll({
+      name: "Black Pearl",
+    });
 
-    expect(hasTreasure.Default).toMatch(/0/);
+    expect(blackPearl).toHaveProperty("name");
+  });
+  test("your readAll method in BoatManager.js selects tile.type", async () => {
+    const [blackPearl] = await tables.boat.readAll({
+      name: "Black Pearl",
+    });
+
+    expect(blackPearl).toHaveProperty("type");
+  });
+  test("your readAll method in BoatManager.js selects tile.has_treasure", async () => {
+    const [blackPearl] = await tables.boat.readAll({
+      name: "Black Pearl",
+    });
+
+    expect(blackPearl).toHaveProperty("has_treasure");
   });
 });

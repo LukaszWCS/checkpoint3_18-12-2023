@@ -1,20 +1,20 @@
 // Import required dependencies
-const { app, request, tables } = require("./setup");
+const { app, request } = require("./setup");
 
-describe("GET /api/boats?name=Black Pearl", () => {
-  test("you added a 'where' parameter to method readAll() in BoatManager.js", async () => {
-    expect(tables.boat.readAll).toHaveLength(1);
-  });
-  test("you used 'where.name' in the SQL request", async () => {
-    const rows = await tables.boat.readAll({ name: "Black Pearl" });
+const tileControllers = require("../src/controllers/tileControllers");
 
-    expect(rows).toHaveLength(1);
+describe("GET /api/tiles", () => {
+  test("you declared and exported a browse function from tileControllers.js", async () => {
+    expect(typeof tileControllers.browse).toBe("function");
   });
-  test("you passed 'req.query' as argument to tables.boat.readAll() in boatControllers.js", async () => {
-    const response = await request(app).get("/api/boats?name=Black%20Pearl");
+  test("your browse function has 3 parameters: req, res and next", async () => {
+    expect(tileControllers.browse).toHaveLength(3);
+  });
+  test("you declared the route GET /api/tiles in router.js, and it sends back the tiles in the response", async () => {
+    const response = await request(app).get("/api/tiles");
 
     expect(response.status).toBe(200);
     expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(72);
   });
 });
