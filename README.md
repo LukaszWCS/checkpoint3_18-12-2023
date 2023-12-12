@@ -52,7 +52,7 @@ Pour ce checkpoint, tu vas rendre le jeu fonctionnel et travailler exclusivement
 
 Si le contexte du jeu t'intéresse, voici le pitch :
 
-> Le pirate le plus célèbre du monde, le grand et l'inimitable capitaine Jack Sparrow, part à la recherche du trésor perdu de Rackham le Rouge, un vieux pirate impitoyable qui semait la terreur parmi les Les mers des Caraïbes, il y a très très longtemps.
+> Le pirate le plus célèbre du monde, le grand et l'inimitable capitaine Jack Sparrow, part à la recherche du trésor perdu de Rackham le Rouge, un vieux pirate impitoyable qui semait la terreur parmi les mers des Caraïbes, il y a très très longtemps.
 >
 > Un vieux marin du Royaume de France, le capitaine Haddock, a donné à Jack une carte mystérieuse avec de nombreuses îles dessus. Haddock sait seulement que le trésor est enterré sur l'une de ces îles.
 > Jack et son équipage ont pour mission de naviguer vers chacune d'elle, jusqu'à trouver les pièces d'or et les pierres précieuses qui constituent le trésor.
@@ -67,7 +67,7 @@ Pour t'échauffer, commençons par un petit exercice de conception de base de do
 
 Jack aime entendre de la musique pendant la navigation.
 Il veut créer sa propre application pour gérer les albums et les pistes.
-Aide-le en créant le Modèle Conceptuel de Données (MCD) pour les fonctionnalité suivantes :
+Aide-le en créant le Modèle Conceptuel de Données (MCD) pour les fonctionnalités suivantes :
 
 - Jack doit pouvoir récupérer la liste complète des albums.
 - Chaque album a un titre, un genre, une image et un artiste.
@@ -88,7 +88,7 @@ npm run test install
 
 Si tu ne l'as pas déjà fait, pour passer ce premier test, tu dois créer le fichier `.env` en copiant `.env.sample`.
 
-La schéma de la base de données pour ce projet est fournie dans `backend/database/schema.sql` : la base de données contiendra des bateaux (pirates) et des "tuiles" d'une carte au trésor.
+Le schéma de la base de données pour ce projet est fourni dans `backend/database/schema.sql` : la base de données contiendra des bateaux (pirates) et des "tuiles" d'une carte au trésor.
 
 Tu dois exécuter les scripts `db:migrate` et `db:seed` pour créer et remplir la base de données :
 
