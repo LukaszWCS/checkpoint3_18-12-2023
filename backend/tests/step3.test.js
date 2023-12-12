@@ -15,8 +15,8 @@ describe("PUT /api/boats/:id", () => {
       name: "Flying Dutchman",
     });
 
-    flyingDutchman.coord_x = 2;
-    flyingDutchman.coord_y = 2;
+    flyingDutchman.coord_x = (flyingDutchman.coord_x + 2) % 12;
+    flyingDutchman.coord_y = (flyingDutchman.coord_y + 1) % 6;
 
     const result = await tables.boat.update(flyingDutchman);
 
@@ -26,8 +26,8 @@ describe("PUT /api/boats/:id", () => {
       name: "Flying Dutchman",
     });
 
-    expect(updatedFlyingDutchman.coord_x).toBe(2);
-    expect(updatedFlyingDutchman.coord_y).toBe(2);
+    expect(updatedFlyingDutchman.coord_x).toBe(flyingDutchman.coord_x);
+    expect(updatedFlyingDutchman.coord_y).toBe(flyingDutchman.coord_y);
   });
   test("you declared and exported an edit function from boatControllers.js", async () => {
     expect(typeof boatControllers.edit).toBe("function");
@@ -40,8 +40,8 @@ describe("PUT /api/boats/:id", () => {
       name: "Flying Dutchman",
     });
 
-    flyingDutchman.coord_x = 3;
-    flyingDutchman.coord_y = 3;
+    flyingDutchman.coord_x = (flyingDutchman.coord_x + 2) % 12;
+    flyingDutchman.coord_y = (flyingDutchman.coord_y + 1) % 6;
 
     const response = await request(app)
       .put(`/api/boats/${flyingDutchman.id}`)
@@ -53,7 +53,7 @@ describe("PUT /api/boats/:id", () => {
       name: "Flying Dutchman",
     });
 
-    expect(updatedFlyingDutchman.coord_x).toBe(3);
-    expect(updatedFlyingDutchman.coord_y).toBe(3);
+    expect(updatedFlyingDutchman.coord_x).toBe(flyingDutchman.coord_x);
+    expect(updatedFlyingDutchman.coord_y).toBe(flyingDutchman.coord_y);
   });
 });
