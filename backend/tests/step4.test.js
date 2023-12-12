@@ -16,7 +16,50 @@ describe("The tileExists middleware", () => {
   test("your tileExists middleware has 3 parameters: req, res and next", async () => {
     expect(tileExists).toHaveLength(3);
   });
-  test("you used the tileExists middleware in the route PUT /api/boats/:id in router.js, and it is functional", async () => {
+  test("your tileExists middleware calls next() if req.body.coord_x and req.body.coord_y are valid", async () => {
+    const req = {
+      body: {
+        coord_x: 0,
+        coord_y: 0,
+      },
+    };
+
+    const res = {
+      sendStatus: jest.fn(),
+    };
+
+    const next = jest.fn();
+
+    await tileExists(req, res, next);
+
+    expect(next).toHaveBeenCalledWith();
+  });
+  test("your tileExists middleware calls res.sendStatus(422) if req.body.coord_x or req.body.coord_y is not valid", async () => {
+    const req = {
+      body: {
+        coord_x: 0,
+        coord_y: 666,
+      },
+    };
+
+    const res = {
+      sendStatus: jest.fn(),
+    };
+
+    const next = jest.fn();
+
+    await tileExists(req, res, next);
+
+    expect(res.sendStatus).toHaveBeenCalledWith(422);
+
+    req.body.coord_x = 666;
+    req.body.coord_y = 0;
+
+    await tileExists(req, res, next);
+
+    expect(res.sendStatus).toHaveBeenCalledWith(422);
+  });
+  test("you added the tileExists middleware in the route PUT /api/boats/:id in router.js", async () => {
     const [flyingDutchman] = await tables.boat.readAll({
       name: "Flying Dutchman",
     });
