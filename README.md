@@ -117,7 +117,7 @@ Tu peux maintenant réaliser la suite, étape par étape (pour chaque étape, su
   - Si tu as des difficultés à utiliser `TileManager`, tu peux t'en passer en vérifiant que la coordonnée X est comprise entre 0 et 11 (inclus), et que la coordonnée Y est comprise entre 0 et 5 (inclus).
   - Si les coordonnées sont valides, passe au suivant. Sinon, répond avec un statut `422`.
 - `npm run test step5` : utiliser une jointure dans la méthode `readAll` de `BoatManager` pour récupérer les informations de la tuile où se trouve le bateau.
-- `npm run test step6` : ajouter un filtre sur le nom à méthode `readAll` de `BoatManager.js`.
+- `npm run test step6` : ajouter un filtre sur le nom à méthode `readAll` de `BoatManager.js` (et traiter le cas où aucune valeur n'est passée pour le paramètre).
 
 ## Et après ?
 

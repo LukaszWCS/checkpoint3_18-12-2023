@@ -11,9 +11,9 @@ describe("PUT /api/boats/:id", () => {
     expect(tables.boat.update).toHaveLength(3);
   });
   test("your update method in BoatManager.js performs the SQL request 'update boat set coord_x=???, coord_y=??? where id=???'", async () => {
-    const [flyingDutchman] = await tables.boat.readAll({
-      name: "Flying Dutchman",
-    });
+    const flyingDutchman = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Flying Dutchman"
+    );
 
     flyingDutchman.coord_x = (flyingDutchman.coord_x + 2) % 12;
     flyingDutchman.coord_y = (flyingDutchman.coord_y + 1) % 6;
@@ -26,9 +26,9 @@ describe("PUT /api/boats/:id", () => {
 
     expect(result.affectedRows).toBe(1);
 
-    const [updatedFlyingDutchman] = await tables.boat.readAll({
-      name: "Flying Dutchman",
-    });
+    const updatedFlyingDutchman = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Flying Dutchman"
+    );
 
     expect(updatedFlyingDutchman.coord_x).toBe(flyingDutchman.coord_x);
     expect(updatedFlyingDutchman.coord_y).toBe(flyingDutchman.coord_y);

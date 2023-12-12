@@ -5,7 +5,12 @@ describe("GET /api/boats?name=Black Pearl", () => {
   test("you added a 'where' parameter to method readAll() in BoatManager.js", async () => {
     expect(tables.boat.readAll).toHaveLength(1);
   });
-  test("you used 'where.name' in the SQL request", async () => {
+  test("your method readAll() returns all boats if where == null", async () => {
+    const rows = await tables.boat.readAll();
+
+    expect(rows).toHaveLength(4);
+  });
+  test("otherwise, you used 'where.name' in the SQL request", async () => {
     const rows = await tables.boat.readAll({ name: "Black Pearl" });
 
     expect(rows).toHaveLength(1);
