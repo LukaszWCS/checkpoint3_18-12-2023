@@ -109,15 +109,15 @@ Tu peux maintenant réaliser la suite, étape par étape (pour chaque étape, su
 
 - `npm run test step1` : ajouter un champ `has_treasure` à la table `tile` (booléen, non nul, `false` par défaut).
 - `npm run test step2` : créer une route `GET /api/tiles` (tu peux suivre le modèle de `GET /api/boats`).
-- `npm run test step3` : créer une route `PUT /api/boats/:id` pour mettre à jour un bateau de la base de données. Dans ton controller, tu peux accéder avec le paramètre `req` à :
+- `npm run test step3` : créer une route `PUT /api/boats/:id` pour mettre à jour un bateau de la base de données. Ta route devra renvoyer un statut `204` si le bateau a été mis à jour, et un statut `404` si la demande de mise a jour n'a affecté aucune ligne (traduction : l'id fourni n'existait pas dans la base de données). Dans ton controller, tu peux accéder avec le paramètre `req` à :
   - l'id du bateau (`req.params.id`),
   - ses coordonnées X et Y (`req.body.coord_x` et `req.body.coord_y`).
 - `npm run test step4` : créer un middleware dans `backend/services/tileExists.js` pour tester si une tuile avec les coordonnées `req.body.coord_x` et `req.body.coord_y` existe ou non dans la base de données.
   - Pour cette étape, idéalement tu devrais utiliser `tables.tile` pour trouver des tuiles à partir de leurs coordonnées (tu devras ajouter une nouvelle méthode `readByCoordinates` à `TileManager.js`).
   - Si tu as des difficultés à utiliser `TileManager`, tu peux t'en passer en vérifiant que la coordonnée X est comprise entre 0 et 11 (inclus), et que la coordonnée Y est comprise entre 0 et 5 (inclus).
   - Si les coordonnées sont valides, passe au suivant. Sinon, répond avec un statut `422`.
-- `npm run test step5` : utiliser une jointure dans la méthode `readAll` de `BoatManager` pour récupérer les informations de la tuile où se trouve le bateau.
-- `npm run test step6` : ajouter un filtre sur le nom à méthode `readAll` de `BoatManager.js` (et traiter le cas où aucune valeur n'est passée pour le paramètre).
+- `npm run test step5` : utiliser une jointure dans la méthode `readAll` de `BoatManager` pour récupérer les informations de la tuile où se trouve le bateau. Assure toi de demander explicitement chaque champ (la jointure va te fournir 2 ids : `boat.id` et `tile.id`).
+- `npm run test step6` : ajouter un filtre sur le nom à la méthode `readAll` de `BoatManager.js` (et traiter le cas où aucune valeur n'est passée pour le paramètre).
 
 ## Et après ?
 
