@@ -9,7 +9,11 @@ const add = async (req, res, next) => {
   const treasureIsland = await tables.tile.getRandomIsland();
 
   try {
-    const boatResult = await tables.boat.update(blackPearl);
+    const boatResult = await tables.boat.update(
+      blackPearl.id,
+      blackPearl.coord_x,
+      blackPearl.coord_y
+    );
 
     if (boatResult.affectedRows === 0) {
       res.sendStatus(404);
