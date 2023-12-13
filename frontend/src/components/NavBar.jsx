@@ -21,7 +21,7 @@ function NavBar({ onStart }) {
             });
         }}
       >
-        Restart
+        Hide treasure 🪙
       </button>
     </nav>
   );
