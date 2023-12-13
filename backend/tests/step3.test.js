@@ -18,13 +18,11 @@ describe("PUT /api/boats/:id", () => {
     flyingDutchman.coord_x = (flyingDutchman.coord_x + 2) % 12;
     flyingDutchman.coord_y = (flyingDutchman.coord_y + 1) % 6;
 
-    const result = await tables.boat.update(
+    await tables.boat.update(
       flyingDutchman.id,
       flyingDutchman.coord_x,
       flyingDutchman.coord_y
     );
-
-    expect(result.affectedRows).toBe(1);
 
     const updatedFlyingDutchman = (await tables.boat.readAll()).find(
       (boat) => boat.name === "Flying Dutchman"
@@ -32,6 +30,22 @@ describe("PUT /api/boats/:id", () => {
 
     expect(updatedFlyingDutchman.coord_x).toBe(flyingDutchman.coord_x);
     expect(updatedFlyingDutchman.coord_y).toBe(flyingDutchman.coord_y);
+  });
+  test("your update method in BoatManager.js returns a result object with an 'affectedRows' property", async () => {
+    const flyingDutchman = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Flying Dutchman"
+    );
+
+    flyingDutchman.coord_x = (flyingDutchman.coord_x + 2) % 12;
+    flyingDutchman.coord_y = (flyingDutchman.coord_y + 1) % 6;
+
+    const result = await tables.boat.update(
+      flyingDutchman.id,
+      flyingDutchman.coord_x,
+      flyingDutchman.coord_y
+    );
+
+    expect(result.affectedRows).toBe(1);
   });
   test("you declared and exported an edit function from boatControllers.js", async () => {
     expect(typeof boatControllers.edit).toBe("function");
