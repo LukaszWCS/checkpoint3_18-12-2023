@@ -4,7 +4,7 @@ const path = require("node:path");
 const { tables } = require("./setup");
 
 describe("Install environment", () => {
-  test("you created .env files in backend and frontend", async () => {
+  test("you created .env file in backend", async () => {
     expect(fs.existsSync(path.join(__dirname, "..", ".env"))).toBe(true);
   });
   test("you executed db:migrate and db:seed scripts", async () => {
