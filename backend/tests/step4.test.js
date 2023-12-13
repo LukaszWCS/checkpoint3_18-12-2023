@@ -7,7 +7,7 @@ describe("The tileExists middleware", () => {
   test("you added a readByCoordinates method in TileManager.js", async () => {
     expect(typeof tables.tile.readByCoordinates).toBe("function");
   });
-  test("your readByCoordinates method in TileManager.js takes 2 parameters 'coord_x' and 'coord_y'", async () => {
+  test("your readByCoordinates method in TileManager.js takes 2 parameters 'coordX' and 'coordY'", async () => {
     expect(tables.tile.readByCoordinates).toHaveLength(2);
   });
   test("your readByCoordinates method in TileManager.js returns an array with tiles for valid coordinates", async () => {
