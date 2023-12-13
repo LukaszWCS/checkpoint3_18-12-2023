@@ -3,11 +3,16 @@ const { tables } = require("./setup");
 
 describe("JOIN tile ON boat.coord_x=tile.coord_x and boat.coord_y=tile.coord_y", () => {
   test("your readAll method in BoatManager.js selects boat.id", async () => {
-    const [blackPearl] = await tables.boat.readAll({
+    const blackPearlAlone = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Black Pearl"
+    );
+
+    const [blackPearlWithJoin] = await tables.boat.readAll({
       name: "Black Pearl",
     });
 
-    expect(blackPearl).toHaveProperty("id");
+    expect(blackPearlWithJoin).toHaveProperty("id");
+    expect(blackPearlWithJoin.id).toBe(blackPearlAlone.id);
   });
   test("your readAll method in BoatManager.js selects boat.coord_x", async () => {
     const [blackPearl] = await tables.boat.readAll({
