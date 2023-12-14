@@ -54,9 +54,9 @@ describe("PUT /api/boats/:id", () => {
     expect(boatControllers.edit).toHaveLength(3);
   });
   test("you declared the route PUT /api/boats/:id in router.js, and it is functional", async () => {
-    const [flyingDutchman] = await tables.boat.readAll({
-      name: "Flying Dutchman",
-    });
+    const flyingDutchman = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Flying Dutchman"
+    );
 
     flyingDutchman.coord_x = (flyingDutchman.coord_x + 2) % 12;
     flyingDutchman.coord_y = (flyingDutchman.coord_y + 1) % 6;
