@@ -70,9 +70,9 @@ describe("The tileExists middleware", () => {
     expect(res.sendStatus).toHaveBeenCalledWith(422);
   });
   test("you added the tileExists middleware in the route PUT /api/boats/:id in router.js", async () => {
-    const [flyingDutchman] = await tables.boat.readAll({
-      name: "Flying Dutchman",
-    });
+    const flyingDutchman = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Flying Dutchman"
+    );
 
     flyingDutchman.coord_x = 0;
     flyingDutchman.coord_y = 0;

@@ -67,9 +67,9 @@ describe("PUT /api/boats/:id", () => {
 
     expect(response.status).toBe(204);
 
-    const [updatedFlyingDutchman] = await tables.boat.readAll({
-      name: "Flying Dutchman",
-    });
+    const updatedFlyingDutchman = (await tables.boat.readAll()).find(
+      (boat) => boat.name === "Flying Dutchman"
+    );
 
     expect(updatedFlyingDutchman.coord_x).toBe(flyingDutchman.coord_x);
     expect(updatedFlyingDutchman.coord_y).toBe(flyingDutchman.coord_y);

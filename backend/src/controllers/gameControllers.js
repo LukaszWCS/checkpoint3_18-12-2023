@@ -1,8 +1,9 @@
 const tables = require("../tables");
 
 const add = async (req, res, next) => {
-  const boats = await tables.boat.readAll({ name: "Black Pearl" });
-  const blackPearl = boats[0];
+  const blackPearl = (await tables.boat.readAll()).find(
+    (boat) => boat.name === "Black Pearl"
+  );
   blackPearl.coord_x = 1;
   blackPearl.coord_y = 1;
 
