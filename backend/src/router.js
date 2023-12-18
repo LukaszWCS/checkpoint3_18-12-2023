@@ -20,6 +20,8 @@ const tileControllers = require("./controllers/tileControllers");
 
 router.get("/tiles", tileControllers.browse);
 
+router.put("/boats/:id", boatControllers.edit);
+
 /* ************************************************************************* */
 
 module.exports = router;
