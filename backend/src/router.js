@@ -16,4 +16,13 @@ router.post("/games", gameControllers.add);
 
 /* ************************************************************************* */
 
+const tileControllers = require("./controllers/tileControllers");
+const tileExists = require("./services/tileExists");
+
+router.get("/tiles", tileControllers.browse);
+
+router.put("/boats/:id", tileExists, boatControllers.edit);
+
+/* ************************************************************************* */
+
 module.exports = router;

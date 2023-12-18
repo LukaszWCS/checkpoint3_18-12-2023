@@ -13,6 +13,14 @@ class TileManager extends AbstractManager {
     return rows;
   }
 
+  async readByCoordinates(coordX, coordY) {
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE coord_x=? AND coord_y=?;`,
+      [coordX, coordY]
+    );
+    return rows;
+  }
+
   async getRandomIsland() {
     const [rows] = await this.database.query(
       `select id from ${this.table} where type="island" order by rand() limit 1`
