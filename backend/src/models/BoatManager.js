@@ -7,7 +7,20 @@ class BoatManager extends AbstractManager {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all boats from the "boat" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(
+      `select 
+        b.id AS id, 
+        b.name, 
+        b.coord_x, 
+        b.coord_y, 
+        t.id AS tile_id, 
+        t.type, 
+        t.coord_x, 
+        t.coord_y, 
+        t.has_treasure 
+      from ${this.table} b 
+      JOIN tile t ON b.coord_x=t.coord_x and b.coord_y=t.coord_y`
+    );
 
     // Return the array of boats
     return rows;
